@@ -67,9 +67,11 @@
           const curBrn = [...btns].find((item) => {
             return item.dataset.key == keyCode;
           });
+          if (!curBrn) return;
           curBrn.classList.add("playing");
           const audio = document.querySelector(`audio[data-key="${keyCode}"]`);
           audio.onended = () => curBrn.classList.remove("playing");
+          audio.currentTime = 0 // rewind to start
           audio.play();
         });
       }
