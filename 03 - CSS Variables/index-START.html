@@ -10,23 +10,34 @@
 
   <div class="controls">
     <label for="spacing">Spacing:</label>
-    <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+    <input id="spacing" type="range"  name="spacing" min="10" max="200" value="10" data-sizing="px">
 
     <label for="blur">Blur:</label>
-    <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+    <input id="blur" type="range" name="blur"  min="0" max="25" value="10" data-sizing="px">
 
     <label for="base">Base Color</label>
     <input id="base" type="color" name="base" value="#ffc600">
   </div>
 
-  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+  <img src="./background.jpg" width="25%" >
 
   <style>
-
+    :root{
+      --spacing:10px;
+      --base:red;
+      --blur:10px
+    }
     /*
       misc styles, nothing to do with CSS variables
     */
-
+    img {
+      padding: var(--spacing);
+      background-color: var(--base);
+      filter: blur(var(--blur));
+    }
+    .hl {
+      color: var(--base);
+    }
     body {
       text-align: center;
       background: #193549;
@@ -46,7 +57,16 @@
   </style>
 
   <script>
-  </script>
+      const val = document.querySelector(":root")
+      
+      function handleChanggeProperty(e){
+        const pl = this.dataset.sizing||""
+        val.style.setProperty(`--${e.target.name}`,`${e.target.value}${pl}`)
+      }
+      const inputs =  document.querySelectorAll("input")
+      inputs.forEach(item=>item.addEventListener("change",handleChanggeProperty))
+
+ </script>
 
 </body>
 </html>
