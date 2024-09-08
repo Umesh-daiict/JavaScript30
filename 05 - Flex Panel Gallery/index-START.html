@@ -69,9 +69,9 @@
       display: flex;     
     }
     .panel > *:first-child { transform: translateY(-100%);}
-    .panel.open > *:first-child { transform: translateY(0);}
+    .panel.active-open > *:first-child { transform: translateY(0);}
     .panel > *:last-child { transform: translateY(100%);}
-    .panel.open > *:last-child { transform: translateY(0);}
+    .panel.active-open > *:last-child { transform: translateY(0);}
 
 
     .panel p {
@@ -125,14 +125,14 @@
     const panels = document.querySelectorAll(".panel")
     panels.forEach(panel => panel.addEventListener("click",onclickhandler))
     function onclickhandler(e){
-      console.log(this,this.classList)
       this.classList.toggle("open")
     }
-    // panels.forEach(panel => panel.addEventListener("transitionend",ontransitionendhanler))
-    // function ontransitionendhanler(e){
-      
-    //   this.classList.toggle("done")
-    // }
+    panels.forEach(panel => panel.addEventListener("transitionend",ontransitionendhanler))
+    function ontransitionendhanler(e){
+      if( e.propertyName.includes("flex") ){
+        this.classList.toggle("active-open")
+      }  
+    }
     
   </script>
 
