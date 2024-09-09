@@ -15,33 +15,54 @@
       </ul>
     </form>
     <script>
+      let cities;
       const endpoint =
         "https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json";
-      let cities
-     (async ()=>{
+      (async () => {
         const res = await fetch(endpoint);
-        cities = await res.json()
-      })()
+        cities = await res.json();
+      })();
 
-      const suggestions =  document.querySelector(".suggestions");
-      const search_input = document.querySelector(".search")
-      const list = document.querySelector("ul")
+      const suggestions = document.querySelector(".suggestions");
+      const search_input = document.querySelector(".search");
 
-      search_input.addEventListener("input",changeSuggetion)
-      function changeSuggetion(e){
-        e.preventDefault()
-        const val = e.target.value.trim()
-        list.replaceChildren("")
-        cities.forEach(city_data => {
-          if(city_data.city.includes(val)){
-            const ptag = document.createElement("li");
-            ptag.innerHTML= `<p>${city_data.city.replace(val,`<mark>${val}</mark>`)}</p>` 
-            list.append(ptag)
-          }
-        })
+      function findMatch(val, cities) {
+        const regex = new RegExp(val, "gi");
+        return cities.filter(
+          (item) => item.city.match(regex) || item.state.match(regex)
+        );
+      }
+      function formatNumberWithCommas(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+      function showSuggetion(e) {
+        const val = e.target.value;
+        const filteredCity = findMatch(val, cities);
+        const htmlSug = filteredCity
+          .map((fcity) => {
+            const regexReplace = new RegExp(val, "gi");
+            const markedCity = fcity.city.replaceAll(
+              regexReplace,
+              `<span class="hl">${val}</span>`
+            );
+            const markedState = fcity.state.replaceAll(
+              regexReplace,
+              `<span class="hl">${val}</span>`
+            );
+
+            return `<li> 
+              <span class="name">${markedCity}, ${markedState}</span>
+              <span class="population">${formatNumberWithCommas(
+                fcity.population
+              )}</span>
+            </li>`;
+          })
+          .join("");
+
+        suggestions.innerHTML = htmlSug;
       }
 
-      // suggestions.appendChild()
+      search_input.addEventListener("input", showSuggetion);
     </script>
   </body>
 </html>
