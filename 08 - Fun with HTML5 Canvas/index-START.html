@@ -11,13 +11,13 @@
       const canvas = document.getElementById("draw");
       console.log(window.innerWidth)
       const ctx = canvas.getContext("2d");
-
-      ctx.width = window.innerWidth;
-      ctx.height = window.innerHeight;
+      console.log(ctx.width)
+      canvas.width = window.innerWidth -4;
+      canvas.height = window.innerHeight -4;
       ctx.lineJoin ="round"
       ctx.strokeStyle = "red"
       ctx.lineCap ="round"
-      ctx.globalCompositeOperation = 'multiply'
+      ctx.globalCompositeOperation = "luminosity"
       ctx.lineWidth = 100
       let isDrawing = false;
       let xCord = 0;
@@ -67,9 +67,6 @@
       html,
       body {
         margin: 0;
-      }
-      #draw{
-        border:4px solid black;
       }
     </style>
   </body>

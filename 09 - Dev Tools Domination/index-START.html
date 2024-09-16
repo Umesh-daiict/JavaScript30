@@ -19,29 +19,52 @@
     }
 
     // Regular
-
+    
     // Interpolated
-
+    console.log("Hi wes bro, %s, here","great tips")
     // Styled
+    console.log(" Hi wes bro,%c here","font-size:2rem")
 
     // warning!
-
+    console.warn("Oppps")
     // Error :|
-
+    console.error("Ahhh!")
+    
     // Info
+    console.info("gods")
 
     // Testing
 
+    console.assert(window.innerWidth > 300,"you are not phone?")
     // clearing
-
+    // console.clear()
     // Viewing DOM Elements
-
+    const ptag= document.querySelector("p")
+    console.dir(ptag)
     // Grouping together
+    console.group("Hiii")
+    console.log("man")
+    console.log('biin log')
+    console.groupEnd("sad")
 
     // counting
+    console.log("Hiii")
+    console.log("Hiii")
+
+    console.count("Hiii")
+    console.count("Hiii")
+    console.count("Hiii")
+    console.count("Hiii")
 
     // timing
+    console.time("Hiii")
+    console.timeLog("Hiii")
 
+    setTimeout(()=>{
+      console.timeLog("Hiii")
+      console.timeEnd("Hiii")
+    },500)
+    console.table(dogs)
   </script>
 </body>
 </html>
