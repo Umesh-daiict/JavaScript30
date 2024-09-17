@@ -98,38 +98,28 @@
     <script>
       const inputs = document.querySelectorAll("input[type=checkbox]");
 
-      let isSwiptKeyup = false;
-      let one = -1,
-        two = -1;
-     
+      let lastOneChecked;
+
       inputs.forEach((ints, key) =>
-        ints.addEventListener("change", (e) => handleMultiCheck(e, key))
+        ints.addEventListener("click", handleMultiCheck)
       );
-      function handleMultiCheck(e, key) {
-        if (isSwiptKeyup) {
-          if (e.target.checked) {
-            if (one == -1) {
-              one = key;
-            } else {
-              two = key;
-            }
-            if (one != -1 && two != -1) {
-              for (i = one; i <= two; i++) {
+      function handleMultiCheck(e) {
+        console.log("hii");
+        if (e.shiftKey && e.target.checked) {
+          let isBetween = false;
+          if (lastOneChecked) {
+            for (i = 0; i < inputs.length; i++) {
+              if (inputs[i] === this || inputs[i] === lastOneChecked) {
+                isBetween = !isBetween;
+              }
+              if (isBetween) {
                 inputs[i].checked = true;
               }
             }
           }
-        } else {
-          one = -1;
-          two = -1;
+          lastOneChecked = this;
         }
       }
-      document.addEventListener("keydown", function (event) {
-        if (event.shiftKey) {
-          isSwiptKeyup = !isSwiptKeyup;
-          console.log("Shift key pressed!");
-        }
-      });
     </script>
   </body>
 </html>
