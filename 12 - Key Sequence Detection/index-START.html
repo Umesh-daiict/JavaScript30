@@ -9,8 +9,19 @@
   <body>
     <script>
       document.addEventListener("keydown",handleKeypress)
+      const code = "umesh"
+      const lasts = []
       function handleKeypress(e){
-        console.log(e.code)
+        lasts.push(e.key)
+        if (lasts.length == code.length +1){
+          lasts.shift()
+          console.log(lasts)
+          if (lasts.join("") == code){
+            console.log("done")
+            cornify_add()
+          }
+          
+         }
       }
     </script>
   </body>
