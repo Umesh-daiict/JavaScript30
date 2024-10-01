@@ -58,6 +58,22 @@
         if (callNow) func.apply(context, args);
       };
     }
+    const images = document.querySelectorAll("img")
+    document.addEventListener("scroll", debounce(handleImageShowIn))
+    function handleImageShowIn() {
+      
+      images.forEach(img => {
+        const slideInAt = (window.scrollY + window.innerHeight) - img.height / 2;
+        const isHalfShown = slideInAt > img.offsetTop
+        if(isHalfShown){
+          img.classList.add("active")
+      
+        }else{
+          img.classList.remove("active")
+          
+        }
+      })
+    }
 
   </script>
 
